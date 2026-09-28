@@ -3,7 +3,7 @@ export const profile = {
   fullName: "Mohamed Waled Mohamed",
   role: "Senior & Lead Unity Developer",
   tagline:
-    "I build gameplay systems, VR experiences and multiplayer backends, and I ship them: a co-op crime sim heading to Steam and a robotics simulator used by 30,000+ people.",
+    "I build gameplay systems, VR experiences and multiplayer backends, and I ship them: an upcoming Steam title and a robotics simulator used by 30,000+ people.",
   location: "Cairo, Egypt",
   email: "mohamedwilly2001@gmail.com",
   resume: "/Mohamed_Waled_Resume.pdf",
@@ -69,7 +69,7 @@ export const experience: Job[] = [
     location: "Remote",
     current: true,
     points: [
-      "Leading development of Synarchy: Strings of Deceit, an online co-op, open-world crime sim built in Unity HDRP with Photon Fusion, now close to its Steam release.",
+      "Leading development of Synarchy: Strings of Deceit, an upcoming multiplayer PC game heading to Steam.",
       "Led the implementation of core gameplay systems, taking the project from early concept through an investor-ready prototype and into the Vertical Slice phase, positioning the title for an Early Access launch on Steam.",
       "Helped grow the studio by recommending and onboarding team members, managing individual tasks and keeping the development pipeline efficient.",
       "Oversee DevOps for the GitHub organization: version control, branching strategies and CI/CD workflows.",
@@ -176,9 +176,9 @@ export const projects: Project[] = [
     slug: "synarchy",
     title: "Synarchy: Strings of Deceit",
     blurb:
-      "An online co-op, open-world crime sim for PC, close to release on Steam. As lead developer at Noxveil Studio I drive the core gameplay systems and the team behind them: Photon Fusion multiplayer, police AI with a heat/wanted system, and minigames like lockpicking, hacking and forgery.",
-    image: "/projects/synarchy.png",
-    tags: ["PC", "Steam", "Unity HDRP", "Photon Fusion", "Co-op"],
+      "An upcoming multiplayer PC game heading to Steam, where I lead development at Noxveil Studio: core gameplay systems, the development team and the studio's CI/CD pipeline.",
+    image: "/projects/synarchy-card.png",
+    tags: ["PC", "Steam", "Unity", "Multiplayer", "Team Lead"],
     badge: "Coming soon · Steam",
     featured: true,
     period: "2025 – Present",
