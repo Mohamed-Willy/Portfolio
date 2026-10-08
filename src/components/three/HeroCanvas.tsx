@@ -95,8 +95,8 @@ export function HeroCanvas({ items, portrait }: { items: ShowcaseItem[]; portrai
       {/* Usage hint that turns into the hovered game's title */}
       <div className="pointer-events-none absolute left-1/2 top-[47svh] z-10 -translate-x-1/2 md:left-auto md:right-[8%] md:top-auto md:bottom-[7%] md:translate-x-0 lg:right-[13%]">
         <p
-          className={`flex items-center gap-2 whitespace-nowrap rounded-full border px-3.5 py-1.5 font-mono text-[11px] backdrop-blur transition-colors ${
-            hoveredTitle ? "border-accent/60 bg-bg/80 text-accent" : "border-line bg-bg/60 text-muted"
+          className={`flex items-center gap-2 whitespace-nowrap rounded-full border px-3.5 py-1.5 font-mono text-[11px] transition-colors ${
+            hoveredTitle ? "border-accent/60 bg-bg/90 text-accent" : "border-line bg-bg/85 text-muted"
           }`}
         >
           {hoveredTitle ? (

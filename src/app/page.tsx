@@ -59,7 +59,7 @@ export default function Home() {
     <>
       <Nav />
       <CursorGlow />
-      <div aria-hidden className="noise pointer-events-none fixed inset-0 z-40" />
+      <div aria-hidden className="noise pointer-events-none fixed inset-0 z-40 hidden md:block" />
       <main id="top" className="overflow-x-clip">
         <Hero />
         <About />
@@ -100,7 +100,7 @@ function Hero() {
       <div className="pointer-events-none relative mx-auto flex w-full max-w-6xl flex-1 items-end px-4 pb-16 pt-[54svh] sm:px-6 md:items-center md:pb-16 md:pt-24">
         <div className="pointer-events-auto max-w-xl">
           <Reveal>
-            <p className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-bg/60 px-3 py-1 font-mono text-xs text-fg backdrop-blur">
+            <p className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-bg/85 px-3 py-1 font-mono text-xs text-fg">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
@@ -135,7 +135,7 @@ function Hero() {
               <a
                 href={profile.resume}
                 download
-                className="btn-shine inline-flex items-center gap-2 rounded-md border border-line bg-bg/60 px-5 py-3 text-sm font-semibold text-fg backdrop-blur transition-colors hover:border-accent/60"
+                className="btn-shine inline-flex items-center gap-2 rounded-md border border-line bg-bg/85 px-5 py-3 text-sm font-semibold text-fg transition-colors hover:border-accent/60"
               >
                 <Download size={16} /> Download CV
               </a>
@@ -156,7 +156,7 @@ function Hero() {
             </div>
           </Reveal>
           <Reveal delay={0.32}>
-            <dl className="mt-10 grid max-w-md grid-cols-3 divide-x divide-line rounded-xl border border-line bg-bg/50 backdrop-blur">
+            <dl className="mt-10 grid max-w-md grid-cols-3 divide-x divide-line rounded-xl border border-line bg-bg/80">
               {heroStats.map((s) => (
                 <div key={s.label} className="px-4 py-3">
                   <dt className="sr-only">{s.label}</dt>

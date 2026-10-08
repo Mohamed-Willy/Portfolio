@@ -208,6 +208,41 @@ function Stage({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Phones and tablets render the scene directly, without post-processing. The multi-pass bloom is too heavy
+ * for many mobile GPUs: when a frame runs long the canvas is presented empty, which shows as black flicker.
+ */
+function isLiteDevice() {
+  return window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
+}
+
+/** Safety net for weak desktop GPUs: if post-processing can't hold ~30 fps, switch it off for good. */
+function FxGuard({ onSlow }: { onSlow: () => void }) {
+  const stats = useRef({ warmup: 0, time: 0, frames: 0, strikes: 0 });
+  useFrame((_, dt) => {
+    const s = stats.current;
+    if (dt > 0.5) {
+      // tab was in the background; don't count the gap as a slow frame
+      s.time = 0;
+      s.frames = 0;
+      return;
+    }
+    if (s.warmup < 2) {
+      s.warmup += dt; // ignore load-time jank
+      return;
+    }
+    s.time += dt;
+    s.frames += 1;
+    if (s.time >= 1.5) {
+      s.strikes = s.frames / s.time < 30 ? s.strikes + 1 : 0;
+      s.time = 0;
+      s.frames = 0;
+      if (s.strikes >= 2) onSlow();
+    }
+  });
+  return null;
+}
+
 export default function HeroScene({
   active,
   dragRef,
@@ -226,12 +261,17 @@ export default function HeroScene({
   onSelect: (slug: string) => void;
 }) {
   const [ready, setReady] = useState(false);
+  const [lite] = useState(isLiteDevice);
+  const [fx, setFx] = useState(!lite);
   return (
     <Canvas
+      flat
       frameloop={active ? "always" : "demand"}
-      dpr={[1, 1.75]}
+      dpr={lite ? [1, 1.5] : [1, 1.75]}
       camera={{ position: [0, 0.5, 9.5], fov: 38 }}
-      gl={{ antialias: false, powerPreference: "high-performance" }}
+      gl={{ antialias: lite, powerPreference: "high-performance" }}
+      // Don't re-measure on scroll: the mobile address bar sliding in and out would keep reallocating the canvas.
+      resize={{ scroll: false }}
       onCreated={() => setReady(true)}
       style={{ opacity: ready ? 1 : 0, transition: "opacity 1s ease" }}
     >
@@ -254,10 +294,15 @@ export default function HeroScene({
         <Sparkles count={50} scale={[9, 6, 6]} size={2} speed={0.3} color={TEAL} opacity={0.6} />
       </Stage>
 
-      <EffectComposer multisampling={4}>
-        <Bloom mipmapBlur luminanceThreshold={1} intensity={0.8} radius={0.6} />
-        <Vignette eskil={false} offset={0.25} darkness={0.7} />
-      </EffectComposer>
+      {fx && (
+        <>
+          <FxGuard onSlow={() => setFx(false)} />
+          <EffectComposer multisampling={4}>
+            <Bloom mipmapBlur luminanceThreshold={1} intensity={0.8} radius={0.6} />
+            <Vignette eskil={false} offset={0.25} darkness={0.7} />
+          </EffectComposer>
+        </>
+      )}
     </Canvas>
   );
 }
